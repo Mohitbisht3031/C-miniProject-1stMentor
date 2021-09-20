@@ -1,0 +1,197 @@
+//Mini project by 1st Mentor
+#include<windows.h>
+#include<stdio.h>
+#include<conio.h>
+#include <stdlib.h>
+#include<string.h>                  //contains strcmp(),strcpy(),strlen(),etc
+#include<ctype.h>                   //contains toupper(), tolower(),etc
+#include<dos.h>                     //contains _dos_getdate
+#include<time.h>
+
+struct books
+{
+int id;
+char name[50];
+float price;
+};
+
+struct books arr[1000];
+int index = 0;
+
+void addbook();
+void deletebook();
+void updatebook();
+void allbooks();
+void mainmenu();
+
+int main()
+{
+mainmenu();
+
+return 0;
+
+}
+
+void mainmenu(){
+    printf("------------------------------------------------------------------\n");
+    int choice;
+printf("Select a choice: \n");
+printf("\n");
+printf("1. Add book \n");
+printf("2. Delete a book \n");
+printf("3. Update a book \n");
+printf("4. Available books \n");
+scanf("%d",&choice);
+printf("\n");
+switch(choice){
+case 1: addbook();
+break;
+
+case 2: deletebook();
+break;
+
+case 3: updatebook();
+break;
+
+case 4: allbooks();
+break;
+
+default:
+    printf("enter a valid choice \n");return;
+}
+printf("------------------------------------------------------------------\n");
+}
+
+void all(){
+    printf("------------------------------------------------------------------\n");
+    for(int i = 0 ;i<index;i++){
+        printf("book id : ");
+    printf("%d",arr[i].id);
+    printf("\n");
+    
+    printf("book name : ");
+    printf("%s",arr[i].name);
+    printf("\n");
+    
+    printf("book price : ");
+    printf("%f",arr[i].price);
+    printf("\n");
+    printf("------------------------------------------------------------------\n");
+}
+}
+
+void addbook(){
+    printf("enter name of the book :\n");
+    scanf("%s",&arr[index].name);
+    printf("enter id of book :\n");
+    scanf("%d",&arr[index].id);
+    printf("enter book price : \n");
+    scanf("%f",&arr[index].price);
+
+    index++;
+    printf("\n");
+    mainmenu();
+    return;
+
+}
+
+void allbooks(){
+    printf("------------------------------------------------------------------\n");
+for(int i = 0 ;i<index;i++){
+        printf("book id : ");
+    printf("%d",arr[i].id);
+    printf("\n");
+    printf("book name : ");
+    printf("%s",arr[i].name);
+    printf("\n");
+    printf("book price : ");
+    printf("%f",arr[i].price);
+    printf("\n");
+}
+printf("\n");
+printf("------------------------------------------------------------------\n");
+mainmenu();
+return;
+}
+
+
+void deletebook(){
+    all();
+    int k;
+    printf("enter id of the book you want to delete: ");
+    scanf("%d",&k);
+    for(int i = 0;i<index;i++){ //index->add new book -> index-1
+            if(arr[i].id == k){
+        for(int j = i+1;j<index;j++){
+            arr[j-1] = arr[j];
+        }
+        break;
+            }
+    }
+    index--; 
+    printf("list of books after deleteing \n");
+    all();
+    mainmenu();
+}
+
+
+void updatebook(){
+    all();
+    int k;
+    printf("enter id of the book you want to update: ");
+    scanf("%d",&k);
+    int j = -1;
+    for(int i = 0;i<index;i++){ 
+        if(arr[i].id == k){
+            j = i;
+            break;
+        }
+    }
+    if(j == -1){
+        printf("Enter a valid id of book \n");
+        updatebook();
+    }
+    else{
+        printf("Enter updated name : ");
+        scanf("%s",&arr[j].name);
+        printf("\n");
+
+        printf("Enter updated id : ");
+        scanf("%d",&arr[j].id);
+        printf("\n");
+
+        printf("Enter updated price : ");
+        scanf("%f",&arr[j].price);
+        printf("\n");
+    }
+    printf("\n");
+    all();
+    mainmenu();
+}
+
+/*
+void updatebook(){
+    all();
+int k;
+printf("enter id of the book you want to update: ");
+scanf("%d",&k);
+printf("\n");
+int j = 0;
+for(int i = 0;i<=index;i++){
+    if(arr[i].id == k){
+        j = i;
+        break;
+    }
+}
+
+printf("enter update name : ");
+scanf("%s ",&arr[j].name);
+printf("enter updated id : ");
+scanf("%d",&arr[j].id);
+printf("enter updated price : ");
+scanf("%f ",&arr[j].price);
+printf("\n");
+
+mainmenu();
+
+}*/
